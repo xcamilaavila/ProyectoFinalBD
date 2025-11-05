@@ -11,4 +11,7 @@ public interface IUsuarioService {
 
     public UsuarioModel guardarUsuario(UsuarioModel usuario);
     public List<UsuarioModel> listarUsuarios();
+    public UsuarioModel buscarUsuarioPorId(Integer id);
+    public UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario);
+    public String eliminarUsuario(Integer id);
 }

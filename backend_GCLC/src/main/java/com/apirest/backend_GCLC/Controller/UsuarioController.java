@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.apirest.backend_GCLC.Model.UsuarioModel;
 import com.apirest.backend_GCLC.Service.IUsuarioService;
 
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,7 +27,7 @@ public class UsuarioController {
 
     @Autowired IUsuarioService usuarioService; // aqui no se inyecta la logica del negocio sino del contrato de operaciones
     @PostMapping("/insertar")
-    ResponseEntity<UsuarioModel> crearUsuario(@RequestBody UsuarioModel usuario){
+    ResponseEntity<UsuarioModel> crearUsuario(@Valid @RequestBody UsuarioModel usuario){
         return new ResponseEntity<UsuarioModel>(usuarioService.guardarUsuario(usuario), HttpStatus.CREATED);
     }
 

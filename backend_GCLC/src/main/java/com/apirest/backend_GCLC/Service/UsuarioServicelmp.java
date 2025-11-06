@@ -18,25 +18,36 @@ public class UsuarioServicelmp implements IUsuarioService{
     public UsuarioModel guardarUsuario(UsuarioModel usuario) { //aqui no se implementa lo de insert, into, eso lo hace el jprRepository
        return usuarioRepository.save(usuario);
     }
+
+    @Override
+    public List<UsuarioModel> listarUsuarios() {
+        return usuarioRepository.findAll();
+    }
+
     @Override
     public UsuarioModel buscarUsuarioPorId(Integer id) {
         return usuarioRepository.findById(id).orElseThrow(()-> new RecursoNoEncontradoException("Error! El empleado con el ID "+id+", no se encuentra en la BD"));
     }
     @Override
     public UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actualizarUsuario'");
-    }
+       UsuarioModel usuarioExistente = buscarUsuarioPorId(id);
+       usuarioExistente.setNombreCompleto(usuario.getNombreCompleto());
+       usuarioExistente.setEdad(usuario.getEdad());
+       usuarioExistente.setOcupacion(usuario.getOcupacion());  
+       usuarioExistente.setCorreoElectronico(usuario.getCorreoElectronico());
+       usuarioExistente.setTelefono(usuario.getTelefono());
+       usuarioExistente.setTipo(usuario.getTipo());
+       return usuarioRepository.save(usuarioExistente);
+      }
     @Override
     public String eliminarUsuario(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eliminarUsuario'");
+        //Buscamos el usuario
+        UsuarioModel usuarioExistente = buscarUsuarioPorId(id);//si el empleado existe
+        //Se elimina al usuario solo si existe
+        usuarioRepository.delete(usuarioExistente);
+        return "El usuario con ID "+id+" se elimino con exito.";
     }
-    @Override
-    public List<UsuarioModel> listarUsuarios() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarUsuarios'");
-    }
+    
 
 
     

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+
 @RestController
 @RequestMapping ("/ClubLectura/usuario")// esto es el en rutamiento y sirve para identificar de quien estamos hablando
 public class UsuarioController {

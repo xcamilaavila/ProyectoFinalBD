@@ -2,6 +2,7 @@ package com.apirest.backend_GCLC.Model;
 
 import java.sql.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -33,9 +34,13 @@ public class LibroModel {
     private String sinopsis;
 
     @Enumerated(EnumType.STRING)
+    //puede quedar en null 
+    @Column(nullable = true)
     private Portada portada;
 
     @Enumerated(EnumType.STRING)
+    // puede quedar en null 
+    @Column(nullable = true)
     private EstadoLectura estadoLectura;
 
     private Date fechaSeleccionClub;

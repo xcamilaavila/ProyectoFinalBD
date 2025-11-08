@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("UAO/libro")
+@RequestMapping("/ClubLectura/libro")
 public class LibroController {
 
     @Autowired ILibroService libroService;

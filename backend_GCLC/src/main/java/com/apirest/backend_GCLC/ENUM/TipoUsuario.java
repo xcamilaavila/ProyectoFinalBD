@@ -1,4 +1,4 @@
-package com.apirest.backend_GCLC.Model;
+package com.apirest.backend_GCLC.ENUM;
 
 public enum TipoUsuario {
     Lector,

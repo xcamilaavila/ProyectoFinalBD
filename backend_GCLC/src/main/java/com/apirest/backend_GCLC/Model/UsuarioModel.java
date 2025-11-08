@@ -1,5 +1,7 @@
 package com.apirest.backend_GCLC.Model;
 
+import com.apirest.backend_GCLC.ENUM.TipoUsuario;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

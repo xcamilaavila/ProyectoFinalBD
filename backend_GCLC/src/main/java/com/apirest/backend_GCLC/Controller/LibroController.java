@@ -1,5 +1,7 @@
 package com.apirest.backend_GCLC.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.apirest.backend_GCLC.Model.LibroModel;
 import com.apirest.backend_GCLC.Service.ILibroService;
 
-
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -27,4 +29,9 @@ public class LibroController {
         
         return new ResponseEntity<LibroModel>(libroService.guardaLibro(libro), HttpStatus.CREATED);
 }
+@GetMapping("/listar")
+    public ResponseEntity<List<LibroModel>> listarLibros() {
+        return new ResponseEntity<>(libroService.listarLibros(), HttpStatus.OK);
+    }
+
 }

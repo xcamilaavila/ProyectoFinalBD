@@ -33,6 +33,54 @@ public class LibroModel {
     private Date ano_publicacion;
     private String sinopsis;
 
+     public Integer getIdLibro() {
+        return idLibro;
+    }
+
+    public void setIdLibro(Integer idLibro) {
+        this.idLibro = idLibro;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public Date getAno_publicacion() {
+        return ano_publicacion;
+    }
+
+    public void setAno_publicacion(Date ano_publicacion) {
+        this.ano_publicacion = ano_publicacion;
+    }
+
+    public String getSinopsis() {
+        return sinopsis;
+    }
+
+    public void setSinopsis(String sinopsis) {
+        this.sinopsis = sinopsis;
+    }
+
     @Enumerated(EnumType.STRING)
     //puede quedar en null 
     @Column(nullable = true)
@@ -44,5 +92,7 @@ public class LibroModel {
     private EstadoLectura estadoLectura;
 
     private Date fechaSeleccionClub;
+
+
 
 }

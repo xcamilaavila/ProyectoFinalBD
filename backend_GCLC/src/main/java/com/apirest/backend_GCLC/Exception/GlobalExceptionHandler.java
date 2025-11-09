@@ -24,11 +24,16 @@ public class GlobalExceptionHandler{
         errorResponse.put("Error!", "Ocurrió un fallo inesperado. Por favor, intente más tarde.");
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    @ExceptionHandler(org.springframework.web.bind.MethodArgumentNotValidException.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> manejarValidaciones(MethodArgumentNotValidException ex) {
-        Map<String, String> errorResponse = new HashMap<>();
-        errorResponse.put("Error!", "Debe llenar todos los campos antes de continuar.");
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    Map<String, String> errores = new HashMap<>();
+
+    ex.getBindingResult().getFieldErrors().forEach(error -> {
+        errores.put(error.getField(), error.getDefaultMessage());
+    });
+
+    return new ResponseEntity<>(errores, HttpStatus.BAD_REQUEST);
 }
+
 
 }

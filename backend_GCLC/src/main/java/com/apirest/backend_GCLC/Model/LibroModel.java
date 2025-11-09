@@ -8,7 +8,9 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import com.apirest.backend_GCLC.ENUM.Portada;
 import com.apirest.backend_GCLC.ENUM.EstadoLectura;
@@ -25,74 +27,34 @@ import lombok.NoArgsConstructor;
 public class LibroModel {
 
     @Id
+    @Positive(message = "El ID no puede ser negativo ni cero")
     private Integer idLibro;
 
+    @NotBlank(message = "El título del libro es obligatorio")
     private String titulo;
+
+    @NotBlank(message = "El autor del libro es obligatorio")
     private String autor;
+
+    @NotBlank(message = "El género del libro es obligatorio")
     private String genero;
+
+    @NotNull(message = "El año de publicación es obligatorio")
     private Date ano_publicacion;
+
+    @NotBlank(message = "La sinopsis es obligatoria")
     private String sinopsis;
-
-     public Integer getIdLibro() {
-        return idLibro;
-    }
-
-    public void setIdLibro(Integer idLibro) {
-        this.idLibro = idLibro;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public Date getAno_publicacion() {
-        return ano_publicacion;
-    }
-
-    public void setAno_publicacion(Date ano_publicacion) {
-        this.ano_publicacion = ano_publicacion;
-    }
-
-    public String getSinopsis() {
-        return sinopsis;
-    }
-
-    public void setSinopsis(String sinopsis) {
-        this.sinopsis = sinopsis;
-    }
 
     @Enumerated(EnumType.STRING)
     //puede quedar en null 
-    @Column(nullable = true)
+    @Column(nullable = true)// el campo se puede llenar o no
     private Portada portada;
 
+    @NotNull// el campo obligatoriamente debe tener algo escrito
     @Enumerated(EnumType.STRING)
-    // puede quedar en null 
-    @Column(nullable = true)
     private EstadoLectura estadoLectura;
 
+    @NotNull(message = "La fecha de selección del club es obligatoria")
     private Date fechaSeleccionClub;
-
-
 
 }

@@ -20,19 +20,26 @@ import jakarta.validation.constraints.*;
 public class UsuarioModel {
 
     @Id
+    @Positive(message = "El ID no puede ser negativo ni cero")
     private Integer idUsuario;
+
     @NotBlank(message = "El nombre completo es obligatorio")
     private String nombreCompleto;
+
     @NotNull(message = "La edad es obligatoria")
     private Integer edad;
+
     @NotBlank(message = "La ocupación es obligatoria")
     private String ocupacion;
+
     @NotBlank(message = "El correo electrónico es obligatorio")
-    @Email(message = "Debe ser un correo electrónico válido")
+    @Email(message = "Debe ingresar un correo electrónico válido")
     private String correoElectronico;
+
     @NotBlank(message = "El teléfono es obligatorio")
     private String telefono;
-    @NotNull(message = "El tipo de usuario es obligatorio")
+    
+    
     @Enumerated(EnumType.STRING) // Guarda el valor como texto ("Lector", "Administrador", "Moderador")
     private TipoUsuario tipo;
     

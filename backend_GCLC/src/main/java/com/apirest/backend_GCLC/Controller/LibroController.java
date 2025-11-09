@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.apirest.backend_GCLC.Model.LibroModel;
 import com.apirest.backend_GCLC.Service.ILibroService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,8 +30,7 @@ public class LibroController {
     
 
     @PostMapping("/insertar")
-    ResponseEntity<LibroModel> crearLibro(@RequestBody LibroModel libro) {
-        
+    ResponseEntity<LibroModel> crearLibro(@Valid @RequestBody LibroModel libro) {
         return new ResponseEntity<LibroModel>(libroService.guardaLibro(libro), HttpStatus.CREATED);
 }
     @GetMapping("/listar")
@@ -49,7 +50,7 @@ public class LibroController {
     }
 
     @PutMapping("/actualizar/{id}")
-    public ResponseEntity<LibroModel> actualizarLibro(@PathVariable Integer id, @RequestBody LibroModel libro) {
+    public ResponseEntity<LibroModel> actualizarLibro(@PathVariable Integer id,@Valid @RequestBody LibroModel libro) {
         LibroModel libroActualizado = libroService.actualizarLibro(id, libro);
         if (libroActualizado != null) {
             return new ResponseEntity<>(libroActualizado, HttpStatus.OK);

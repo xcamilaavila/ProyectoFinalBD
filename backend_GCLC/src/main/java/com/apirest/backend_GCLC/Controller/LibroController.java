@@ -32,19 +32,14 @@ public class LibroController {
         
         return new ResponseEntity<LibroModel>(libroService.guardaLibro(libro), HttpStatus.CREATED);
 }
-@GetMapping("/listar")
+    @GetMapping("/listar")
     public ResponseEntity<List<LibroModel>> listarLibros() {
         return new ResponseEntity<>(libroService.listarLibros(), HttpStatus.OK);
     }
 
     @GetMapping("/buscar/{id}")
     public ResponseEntity<LibroModel> buscarLibroPorId(@PathVariable Integer id) {
-        LibroModel libro = libroService.buscarLibroPorId(id);
-        if (libro != null) {
-            return new ResponseEntity<>(libro, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<LibroModel>(libroService.buscarLibroPorId(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/eliminar/{id}")

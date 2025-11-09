@@ -18,7 +18,7 @@ public class LibroServicelmp implements ILibroService{
     }
 
     @Override
-    public List<LibroModel> listaLibro() {
+    public List<LibroModel> listarLibros() {
         return iLibroRepository.findAll();
     }
     

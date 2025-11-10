@@ -1,6 +1,6 @@
 package com.apirest.backend_GCLC.Model;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 import com.apirest.backend_GCLC.ENUM.TemaForo;
 
@@ -14,6 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,9 +35,11 @@ public class ForoModel {
     @Enumerated(EnumType.STRING) // Guarda el valor como texto ("Genero", "Autor", "Tema")
     private TemaForo temaForo;
 
+    @NotBlank(message = "El mensaje es obligatorio")
     private String mensaje;
 
-    private LocalDateTime fechaPublicacion;
+    @NotNull(message = "La fecha de publicación es obligatoria")
+    private Date fechaPublicacion;
 
     @ManyToOne
     @JoinColumn(name = "idUsuario", nullable = false)

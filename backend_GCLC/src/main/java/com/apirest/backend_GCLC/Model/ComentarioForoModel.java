@@ -46,6 +46,6 @@ public class ComentarioForoModel {
 
     @ManyToOne
     @JoinColumn(name="idComentarioPadre", nullable = true)
-    private ComentarioForoModel comentarioForo;
+    private ComentarioForoModel comentarioPadre;
 
 }

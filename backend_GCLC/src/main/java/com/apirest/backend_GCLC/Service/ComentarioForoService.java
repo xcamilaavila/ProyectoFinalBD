@@ -33,15 +33,19 @@ public class ComentarioForoService implements IComentarioForoService{
 
     @Override
     public ComentarioForoModel actualizarComentarioForo(Integer id, ComentarioForoModel comentario) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actualizarComentarioForo'");
+       ComentarioForoModel ComentarioExistente = buscarComentarioForoPorId(id);
+       ComentarioExistente.setContenidoRespuesta(comentario.getContenidoRespuesta());
+       ComentarioExistente.setFechaComentario(comentario.getFechaComentario());
+       return comentarioForoRepository.save(ComentarioExistente);
     }
 
     @Override
     public String eliminarComentarioForo(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eliminarComentarioForo'");
-
+       //Buscamos el comentario
+       ComentarioForoModel ComentarioExistente = buscarComentarioForoPorId(id); // si el comentario existe
+       //Se elimina el comentario solo si existe
+        comentarioForoRepository.delete(ComentarioExistente);
+        return "El comentario con ID "+id+" se elimino con exito.";
 
     }
 

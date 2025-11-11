@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.apirest.backend_GCLC.Exception.RecursoNoEncontradoException;
 import com.apirest.backend_GCLC.Model.ComentarioForoModel;
 import com.apirest.backend_GCLC.Repository.IComentarioForoRepository;
 
@@ -22,14 +23,12 @@ public class ComentarioForoService implements IComentarioForoService{
 
     @Override
     public List<ComentarioForoModel> listaComentarioForos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listaComentarioForos'");
+        return comentarioForoRepository.findAll();
     }
 
     @Override
     public ComentarioForoModel buscarComentarioForoPorId(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarComentarioForoPorId'");
+        return comentarioForoRepository.findById(id).orElseThrow(()-> new RecursoNoEncontradoException("Error! El comentario con el ID "+id+", no se encuentra en la BD"));
     }
 
     @Override
@@ -42,6 +41,8 @@ public class ComentarioForoService implements IComentarioForoService{
     public String eliminarComentarioForo(Integer id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'eliminarComentarioForo'");
+
+
     }
 
    

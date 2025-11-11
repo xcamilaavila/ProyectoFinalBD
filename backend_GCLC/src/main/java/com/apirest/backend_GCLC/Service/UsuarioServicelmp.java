@@ -26,7 +26,7 @@ public class UsuarioServicelmp implements IUsuarioService{
 
     @Override
     public UsuarioModel buscarUsuarioPorId(Integer id) {
-        return usuarioRepository.findById(id).orElseThrow(()-> new RecursoNoEncontradoException("Error! El empleado con el ID "+id+", no se encuentra en la BD"));
+        return usuarioRepository.findById(id).orElseThrow(()-> new RecursoNoEncontradoException("Error! El usuario con el ID "+id+", no se encuentra en la BD"));
     }
     @Override
     public UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario) {

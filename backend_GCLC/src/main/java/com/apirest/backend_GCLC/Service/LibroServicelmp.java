@@ -1,11 +1,12 @@
 package com.apirest.backend_GCLC.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.apirest.backend_GCLC.Exception.RecursoNoEncontradoException;
 import com.apirest.backend_GCLC.Model.LibroModel;
 import com.apirest.backend_GCLC.Repository.ILibroRepository;
 @Service
@@ -23,11 +24,11 @@ public class LibroServicelmp implements ILibroService{
         return iLibroRepository.findAll();
     }
 
-    @Override
+  @Override
 public LibroModel buscarLibroPorId(Integer id) {
-    Optional<LibroModel> libro = iLibroRepository.findById(id);
-    return libro.orElse(null);
+    return iLibroRepository.findById(id).orElseThrow(() -> new RecursoNoEncontradoException("Error: El libro con ID " + id + " no fue encontrado."));
 }
+
 
 @Override
     public String eliminarLibro(Integer id) {

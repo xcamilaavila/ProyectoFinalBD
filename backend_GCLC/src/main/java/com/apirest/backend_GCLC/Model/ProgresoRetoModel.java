@@ -40,7 +40,7 @@ public class ProgresoRetoModel {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado")
-    private EstadoProgresoReto estadoProgresoReto;
+    private EstadoProgresoReto estado;
 
     @ManyToOne
     @JoinColumn(name = "idLibro")

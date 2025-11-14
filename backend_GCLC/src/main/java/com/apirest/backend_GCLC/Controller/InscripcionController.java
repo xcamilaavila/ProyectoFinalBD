@@ -41,6 +41,11 @@ public class InscripcionController {
         return new ResponseEntity<>(inscripcionService.listarInscripciones(), HttpStatus.OK);
     }
 
+     @GetMapping("/buscarInscripcion/{id}")
+    ResponseEntity <InscripcionModel> buscarInscripcion(@PathVariable Integer id) {
+       return new ResponseEntity<InscripcionModel>(inscripcionService.buscarInscripcionPorId(id),HttpStatus.OK);
+    }
+
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<InscripcionModel>actualizarInscripcion(@PathVariable Integer id, @Valid @RequestBody  InscripcionModel inscripcion){
         return new ResponseEntity<InscripcionModel>(inscripcionService.actualizarInscripcion(id, inscripcion), HttpStatus.OK);

@@ -18,30 +18,28 @@ public class InscripcionService implements IInscripcionService {
     @Autowired IInscripcionRepository inscripcionRepository;
     @Autowired IUsuarioRepository usuarioRepository;
 
-   @Override
-    public InscripcionModel guardarInscripcion(InscripcionModel inscripcion) {
-    try {
-        inscripcion.setIdInscripcion(null);
+    @Override
+        public InscripcionModel guardarInscripcion(InscripcionModel inscripcion) {
+        try {
+            inscripcion.setIdInscripcion(null);
 
-        var usuario = usuarioRepository.findById(inscripcion.getUsuario().getIdUsuario())
-            .orElseThrow(() -> new RuntimeException("¡Error! El usuario no existe."));
+            var usuario = usuarioRepository.findById(inscripcion.getUsuario().getIdUsuario())
+                .orElseThrow(() -> new RuntimeException("¡Error! El usuario no existe."));
 
-        if (usuario.getTipo() != TipoUsuario.Lector) {
-            throw new RuntimeException("¡Error! Solo los usuarios con rol lector se inscriben a los retos de lectura.");
+            if (usuario.getTipo() != TipoUsuario.Lector) {
+                throw new RuntimeException("¡Error! Solo los usuarios con rol lector se inscriben a los retos de lectura.");
+            }
+
+            return inscripcionRepository.save(inscripcion);
+
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            throw new RuntimeException("¡Error! El usuario ya está inscrito en este reto.");
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("¡Error inesperado al guardar la inscripción!");
         }
-
-        return inscripcionRepository.save(inscripcion);
-
-    } catch (org.springframework.dao.DataIntegrityViolationException e) {
-        throw new RuntimeException("¡Error! El usuario ya está inscrito en este reto.");
-    } catch (RuntimeException e) {
-        throw e;
-    } catch (Exception e) {
-        throw new RuntimeException("¡Error inesperado al guardar la inscripción!");
     }
-}
-
-
 
     @Override
     public List<InscripcionModel> listarInscripciones() {

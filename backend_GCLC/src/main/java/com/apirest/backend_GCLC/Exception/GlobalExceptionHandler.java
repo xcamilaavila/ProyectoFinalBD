@@ -34,6 +34,16 @@ public class GlobalExceptionHandler{
 
     return new ResponseEntity<>(errores, HttpStatus.BAD_REQUEST);
 }
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Map<String, String>> manejarRuntime(RuntimeException ex) {
+    Map<String, String> errorResponse = new HashMap<>();
+    errorResponse.put("Error!", ex.getMessage());
+    return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+}
 
+    @ExceptionHandler(LibroNoAsociadoException.class)
+    public ResponseEntity<String> handleLibroNoAsociado(LibroNoAsociadoException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 
 }

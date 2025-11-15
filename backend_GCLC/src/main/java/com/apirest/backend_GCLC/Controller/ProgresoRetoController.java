@@ -1,5 +1,7 @@
 package com.apirest.backend_GCLC.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ import com.apirest.backend_GCLC.Model.ProgresoRetoModel;
 import com.apirest.backend_GCLC.Service.IProgresoRetoService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PutMapping;
+
+
 
 @RestController
 @RequestMapping("/ClubLectura/progreso")
@@ -28,13 +33,20 @@ public class ProgresoRetoController {
         return new ResponseEntity<>(progresoService.guardarProgresoReto(dto), HttpStatus.CREATED);
     }
 
-
-
+    @GetMapping("/listar")
+   ResponseEntity<List<ProgresoRetoModel>>listarProgresos() {
+        return new ResponseEntity<List<ProgresoRetoModel>>(progresoService.listarProgresos(),HttpStatus.OK);
+    }
+    
     @GetMapping("/buscarProgreso/{id}")
         ResponseEntity <ProgresoRetoModel> buscarProgreso(@PathVariable Integer id) {
         return new ResponseEntity<ProgresoRetoModel>(progresoService.buscarProgresoPorId(id),HttpStatus.OK);
         }
 
+    @PutMapping("/actualizar/{id}")
+        ResponseEntity<ProgresoRetoModel>actualizarProgreso(@PathVariable Integer id, @Valid @RequestBody ProgresoRetoModel progreso){
+            return new ResponseEntity<ProgresoRetoModel>(progresoService.actualizarProgreso(id, progreso),HttpStatus.OK);
+        }
     @DeleteMapping("/eliminar/{id}")
         ResponseEntity<String> eliminarProgreso(@PathVariable Integer id){
         return new ResponseEntity<String>(progresoService.eliminarProgreso(id),HttpStatus.OK);

@@ -84,11 +84,31 @@ public class ProgresoRetoService implements IProgresoRetoService {
     @Override
     public ProgresoRetoModel actualizarProgreso(Integer id, ProgresoRetoModel progreso) {
         ProgresoRetoModel progresoExiste = buscarProgresoPorId(id);
+
+        // Validación: el libro sigue perteneciendo al reto
+        boolean existeAsociacion = asociacionRepository
+                .existsByIdIdLibroAndIdIdReto(
+                    progresoExiste.getLibro().getIdLibro(),
+                    progresoExiste.getReto().getIdReto()
+                );
+
+        if (!existeAsociacion) {
+            throw new LibroNoAsociadoException(
+                "No puedes actualizar el progreso porque el libro con ID "
+                + progresoExiste.getLibro().getIdLibro()
+                + " no está asociado al reto con ID "
+                + progresoExiste.getReto().getIdReto()
+            );
+        }
+
+        // Actualizar SOLO los campos que pueden cambiar
         progresoExiste.setEstado(progreso.getEstado());
         progresoExiste.setFechaActualizacion(progreso.getFechaActualizacion());
         progresoExiste.setPorcentajeAvance(progreso.getPorcentajeAvance());
+
         return progresoRetoRepository.save(progresoExiste);
     }
+
 
     @Override
     public String eliminarProgreso(Integer id) {

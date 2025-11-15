@@ -16,6 +16,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,7 @@ public class InscripcionModel {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Positive(message = "El ID no puede ser negativo ni cero")
     @Column(name = "idInscripcion")
     private Integer idInscripcion;
 

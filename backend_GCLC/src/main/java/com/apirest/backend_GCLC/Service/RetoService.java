@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.apirest.backend_GCLC.Exception.RecursoNoEncontradoException;
 import com.apirest.backend_GCLC.Model.RetoModel;
+import com.apirest.backend_GCLC.Repository.IInscripcionRepository;
 import com.apirest.backend_GCLC.Repository.IRetoRepository;
 
 @Service
 
 public class RetoService implements IRetoService {
     @Autowired IRetoRepository retoRepository;
+    @Autowired IInscripcionRepository inscripcionRepository;
     @Override
     public RetoModel guardarReto(RetoModel reto) {
         return retoRepository.save(reto);
@@ -42,9 +44,16 @@ public class RetoService implements IRetoService {
 
     @Override
     public String eliminarReto(Integer id) {
+
         RetoModel retoExistente = buscarRetoPorId(id);
+
+        // Verificar si el reto tiene inscritos
+        if (inscripcionRepository.existsByReto_IdReto(id)) {
+            throw new RuntimeException("No se puede eliminar el reto porque tiene inscritos.");
+        }
+
         retoRepository.delete(retoExistente);
-        return "El reto con el ID "+id+" se elimino con exito.";
+        return "El reto con el ID " + id + " se eliminó con éxito.";
     }
     
 }

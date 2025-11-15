@@ -37,7 +37,7 @@ public class RetoController {
 
     }
 
-    @GetMapping("/buscarUsuario/{id}")
+    @GetMapping("/buscarReto/{id}")
     ResponseEntity <RetoModel> buscarReto(@PathVariable Integer id) {
        return new ResponseEntity<RetoModel>(retoService.buscarRetoPorId(id),HttpStatus.OK);
     }
@@ -46,7 +46,7 @@ public class RetoController {
         return new ResponseEntity<String>(retoService.eliminarReto(id),HttpStatus.OK);
     }
 
-    @PutMapping("/actualizarReto/{id}")
+    @PutMapping("/actualizar/{id}")
     ResponseEntity<RetoModel> actualizarReto(@PathVariable Integer id,@Valid @RequestBody RetoModel reto){
     return new ResponseEntity<RetoModel>(retoService.actualizarReto(id, reto),HttpStatus.OK);
   }

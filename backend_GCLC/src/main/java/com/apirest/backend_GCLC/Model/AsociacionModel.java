@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 @Entity
 @Data
-@Table(name = "Asociacion")
+@Table(name = "Asociacion")//la tabla física que guarda estas relaciones.
 public class AsociacionModel {
 
     @EmbeddedId

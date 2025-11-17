@@ -9,7 +9,9 @@ import com.apirest.backend_GCLC.ENUM.EstadoInscripcion;
 import com.apirest.backend_GCLC.ENUM.TipoUsuario;
 import com.apirest.backend_GCLC.Exception.RecursoNoEncontradoException;
 import com.apirest.backend_GCLC.Model.InscripcionModel;
+import com.apirest.backend_GCLC.Model.RetoModel;
 import com.apirest.backend_GCLC.Repository.IInscripcionRepository;
+import com.apirest.backend_GCLC.Repository.IRetoRepository;
 import com.apirest.backend_GCLC.Repository.IUsuarioRepository;
 
 @Service
@@ -17,18 +19,27 @@ public class InscripcionService implements IInscripcionService {
     
     @Autowired IInscripcionRepository inscripcionRepository;
     @Autowired IUsuarioRepository usuarioRepository;
+    @Autowired IRetoRepository retoRepository;
 
     @Override
         public InscripcionModel guardarInscripcion(InscripcionModel inscripcion) {
         try {
             inscripcion.setIdInscripcion(null);
 
+            // Validar y cargar el usuario real que esta en la base de datos
             var usuario = usuarioRepository.findById(inscripcion.getUsuario().getIdUsuario())
                 .orElseThrow(() -> new RuntimeException("¡Error! El usuario no existe."));
 
             if (usuario.getTipo() != TipoUsuario.Lector) {
                 throw new RuntimeException("¡Error! Solo los usuarios con rol lector se inscriben a los retos de lectura.");
             }
+            inscripcion.setUsuario(usuario);
+
+        // (Opcional) si quisieras validar el reto:
+            RetoModel reto = retoRepository.findById(inscripcion.getReto().getIdReto())
+              .orElseThrow(() -> new RuntimeException("El reto no existe"));
+            inscripcion.setReto(reto);
+
 
             return inscripcionRepository.save(inscripcion);
 
